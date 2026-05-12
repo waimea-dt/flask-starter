@@ -43,6 +43,7 @@ def show_all_creatures():
 def show_help():
 
     flash("Flash test message")
+    flash("Flash test message with a longer bit of text")
     flash("Success test message", "success")
     flash("Error test message", "error")
 
