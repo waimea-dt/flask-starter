@@ -18,6 +18,10 @@ See the [docs folder](docs) for a quick-start and guides to usage. In particular
 ```
 ├── README.md            # Project README
 │
+├── Dockerfile           # Define environment and launch Flask
+│
+├── docker-compose.yml   # Docker run configuration
+│
 ├── requirements.txt     # Python modules required
 │
 ├── app/                 # Flask application

@@ -1,9 +1,9 @@
-# Use a specific Python version so everyone gets the same one
+# Specific Python version to use
 FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install dependencies first — Docker caches this layer so it
+# Install dependencies first - Docker caches this layer so it
 # only re-runs when requirements.txt changes (faster rebuilds)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
