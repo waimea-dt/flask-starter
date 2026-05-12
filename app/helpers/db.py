@@ -208,8 +208,8 @@ def init_database():
 
     _create_db_if_needed()
 
-    for table_name, schema, seed_sql in TABLES:
-        _init_db_table(table_name, schema, seed_sql)
+    for table in TABLES:
+        _init_db_table(table.NAME, table.SCHEMA, table.SEED_DATA)
 
     _log_database_schema()
     console.rule()

@@ -15,28 +15,24 @@
 #     SEED_DATA = "INSERT INTO name (...)" or None
 #----------------------------------------------------------------------------
 
-class NoteTable:
+class CreatureTable:
 
-    NAME = "note"
+    NAME = "creatures"
 
     SCHEMA = """
-        CREATE TABLE note (
+        CREATE TABLE creatures (
             id      INTEGER PRIMARY KEY AUTOINCREMENT,
-            title   TEXT NOT NULL,
-            body    TEXT,
-            pinned  INTEGER DEFAULT 0,
-            created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            species TEXT NOT NULL,
+            name    TEXT NOT NULL
         )
     """
 
     SEED_DATA = """
-        INSERT INTO note (title, pinned, body)
+        INSERT INTO creatures (species, name)
         VALUES
-            ("Welcome!",      1, "This is a demo application using Flask, Jinja and SQLite."),
-            ("Shopping List", 0, "Milk\nBread\nEggs\nCheese"),
-            ("Meeting Notes", 0, "Discussed project timeline.\n\nAction items:\n- Review design\n- Update docs"),
-            ("Recipe: Pasta", 0, "Ingredients:\n- 500g pasta\n- Tomato sauce\n- Garlic\n\nCook pasta, add sauce, enjoy!"),
-            ("Important!",    1, "Remember to backup your database regularly.")
+            ("Dragon",  "Pippa"),
+            ("Unicorn", "Barry"),
+            ("Vampire", "Helen")
     """
 
 # Add more table classes here...
@@ -49,17 +45,17 @@ class NoteTable:
 # Register all of your tables by adding them to the TABLES list here:
 #
 # TABLES = [
-#     (Table1.NAME, Table1.SCHEMA, Table1.SEED_DATA),
-#     (Table2.NAME, Table2.SCHEMA, Table2.SEED_DATA),
+#     Table1,
+#     Table2,
 #     etc.
 # ]
 #
 # Note: The table order is important - Create the tables that have
-# foreign keys *after* the tables they link to have been created
+#       foreign keys AFTER the tables they link to have been created
 #----------------------------------------------------------------------------
 
 TABLES = [
-    (NoteTable.NAME, NoteTable.SCHEMA, NoteTable.SEED_DATA),
+    CreatureTable,
     # Add more tables here...
 ]
 

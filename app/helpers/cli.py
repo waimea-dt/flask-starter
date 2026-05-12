@@ -59,9 +59,9 @@ def register_commands(app):
         _create_db_if_needed()
 
         console.print("Creating and seeding tables...")
-        for table_name, schema, seed_sql in TABLES:
-            _init_db_table(table_name, schema, seed_sql)
-            _success(table_name, "created and seeded")
+        for table in TABLES:
+            _init_db_table(table.NAME, table.SCHEMA, table.SEED_DATA)
+            _success(table.NAME, "created and seeded")
 
         console.rule()
         _log_database_schema()
@@ -80,15 +80,15 @@ def register_commands(app):
 
         with connect_db() as db:
             console.print("Clearing all tables...")
-            for table_name, schema, seed_sql in TABLES:
-                db.execute(f"DELETE FROM {table_name}")
-                _success(table_name, "cleared")
+            for table in TABLES:
+                db.execute(f"DELETE FROM {table.NAME}")
+                _success(table.NAME, "cleared")
 
             console.print("Seeding tables with sample data...")
-            for table_name, schema, seed_sql in TABLES:
-                if seed_sql:
-                    _seed_table(db, logger, table_name, seed_sql)
-                    _success(table_name, "re-seeded")
+            for table in TABLES:
+                if table.SEED_DATA:
+                    _seed_table(db, logger, table.NAME, table.SEED_DATA)
+                    _success(table.NAME, "re-seeded")
 
         console.rule()
         _log_database_data()
@@ -105,9 +105,9 @@ def register_commands(app):
 
         with connect_db() as db:
             console.print("Clearing all tables...")
-            for table_name, schema, seed_sql in TABLES:
-                db.execute(f"DELETE FROM {table_name}")
-                _success(table_name, "cleared")
+            for table in TABLES:
+                db.execute(f"DELETE FROM {table.NAME}")
+                _success(table.NAME, "cleared")
 
         _complete("Database clearing")
 
