@@ -17,7 +17,7 @@
 
 /* Overall Layout -----------------------------------------------*/
 
-body {
+html {
     background-color: var(--back-col);
     color: var(--text-col);
 
@@ -36,12 +36,8 @@ main {
 body > header {
     display: flex;
     gap: 1rem;
-    justify-content: space-between;
     align-items: center;
     padding: 1rem;
-
-    background-color: var(--back-col-dark);
-    border-bottom: 2px solid var(--border-col);
 
     .logo {
         width: 2rem;
@@ -49,7 +45,7 @@ body > header {
     }
 
     h1 {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         flex: 1;
     }
 
@@ -59,8 +55,6 @@ body > header {
 
         a {
             color: var(--accent-col);
-            font-weight: bold;
-            text-decoration: none;
         }
     }
 }
@@ -80,7 +74,15 @@ main > h2 {
 #creatures {
     display: grid;
     gap: 2rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+
+    @media (width >= 500px) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media (width >= 800px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 
     .creature {
         padding: 1rem;
