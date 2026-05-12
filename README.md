@@ -1,6 +1,6 @@
 # Flask Project Template
 
-This is a simple [Flask web app](https://flask.palletsprojects.com/) project, built using [Python](https://www.python.org/), that using a [SQLite database](https://sqlite.org/), and [Jinja2 templates](https://jinja.palletsprojects.com/templates/). Basic styling is handled by [PicoCSS](https://picocss.com/).
+This is a starter for a [Flask web app](https://flask.palletsprojects.com/), built using [Python](https://www.python.org/), that using a [SQLite database](https://sqlite.org/), and [Jinja2 templates](https://jinja.palletsprojects.com/templates/). Basic styling is handled by [PicoCSS](https://picocss.com/).
 
 See the [docs folder](docs) for a quick-start and guides to usage. In particular:
 
@@ -10,7 +10,7 @@ See the [docs folder](docs) for a quick-start and guides to usage. In particular
 - [DB Schema](docs/guides/schema.md)
 - [SQL Queries](docs/guides/sqlite.md)
 
-*For easier reading, the docs are hosted as a [GH Pages site](https://waimea-dt.github.io/flask-project/)*
+*For easier reading, the docs are hosted as a [GH Pages site](https://waimea-dt.github.io/flask-starter/)*
 
 
 ## Project Structure
@@ -42,9 +42,7 @@ See the [docs folder](docs) for a quick-start and guides to usage. In particular
 │   └── helpers/         # Helper files (don't modify)
 │
 └── docs/                # Project documentation
-    ├── guides/          # Helpful guides
-    ├── instructions/    # Task instructions
-    └── evidence/        # Project evidence
+    └── guides/          # Helpful guides
 ```
 
 ## Useful Commands
