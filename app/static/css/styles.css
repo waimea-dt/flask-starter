@@ -1,79 +1,140 @@
 /*===========================================================
-  PROJECT NAME HERE
+  APP NAME HERE
   By YOUR NAME HERE
 ===========================================================*/
 
+:root {
+    --text-col:         #312;
+    --back-col:         #dff;
+    --back-col-dark:    #acc;
+    --border-col:       #144;
+    --accent-col:       #e43;
 
-/* Nav Menu -----------------------------------------------*/
+    --error-col:        #e88;
+    --success-col:      #8e8;
+}
 
-.app-name a {
+
+/* Overall Layout -----------------------------------------------*/
+
+body {
+    background-color: var(--back-col);
+    color: var(--text-col);
+
+    font-family: system-ui, sans-serif;
+}
+
+main {
+    max-width: 60rem;
+    margin-inline: auto;
+    padding: 1rem;
+}
+
+
+/* Header & Nav -----------------------------------------------*/
+
+body > header {
     display: flex;
+    gap: 1rem;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.25rem;
-    text-decoration: none;
-    font-weight: bold;
+    padding: 1rem;
+
+    background-color: var(--back-col-dark);
+    border-bottom: 2px solid var(--border-col);
+
+    .logo {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+        flex: 1;
+    }
+
+    nav {
+        display: flex;
+        gap: 1rem;
+
+        a {
+            color: var(--accent-col);
+            font-weight: bold;
+            text-decoration: none;
+        }
+    }
+}
+
+
+/* Page Headings -----------------------------------------------*/
+
+main > h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-block: 2rem;
+}
+
+
+/* Creature List --------------------------------------------------*/
+
+#creatures {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .creature {
+        padding: 1rem;
+
+        background-color: var(--back-col-dark);
+        border: 2px solid var(--border-col);
+        border-radius: 0.5rem;
+
+        h3 {
+            color: var(--accent-col);
+        }
+    }
 }
 
 
 /* Flash Status Messages --------------------------------- */
 
 #messages {
-    width: fit-content;
-    margin: 1rem auto;
-
-    .message-list {
-        padding: 0;
-    }
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
 
     .message {
-        list-style: none;
-        text-align: center;
-        margin-bottom: 1rem;
+        width: 15rem;
+        margin-block: 1rem;
+        padding: 1rem;
+        background-color: var(--back-col-dark);
+        border: 2px solid var(--border-col);
+        border-radius: 0.5rem;
+        box-shadow: 0 0.1rem 0.5rem #0004;
+        cursor: pointer;
 
-        &.success { color: var(--pico-color-green-500); }
-        &.error   { color: var(--pico-color-red-500); }
+        &.success { background-color: var(--success-col); }
+        &.error   { background-color: var(--error-col); }
+
+        transform: translateX(120%);
+        opacity: 0;
+        animation: message-slide-in 500ms forwards;
+
+        &:nth-child(2) { animation-delay: 100ms; }
+        &:nth-child(3) { animation-delay: 200ms; }
+        &:nth-child(4) { animation-delay: 300ms; }
+    }
+}
+
+@keyframes message-slide-in {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
     }
 }
 
 
-/* Notes --------------------------------------------------*/
-
-#notes {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
-    align-items: start;
-}
-
-
-.note {
-    margin: 0;
-    box-shadow: 0 0.5rem 1rem #0004;
-    border: 1px solid var(--pico-color-yellow-300);
-    background-color: var(--pico-color-yellow-100);
-
-    header,
-    footer {
-        background-color: var(--pico-color-yellow-100);
-        border: none;
-    }
-
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-
-        h3 {
-            margin-bottom: 0;
-        }
-    }
-
-    footer {
-        font-size: 0.7rem;
-        font-style: italic;
-    }
-
-    &.pinned {
-        border-color: var(--pico-color-red-500);
-    }
-}

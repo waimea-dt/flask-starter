@@ -28,8 +28,8 @@ The table are then added to the `TABLES` **table registry list**, one row per ta
 
 ```python
 TABLES = [
-    (NoteTable.NAME, NoteTable.SCHEMA, NoteTable.SEED_DATA),
-    (UserTable.NAME, UserTable.SCHEMA, UserTable.SEED_DATA),
+    NoteTable,
+    UserTable,
     ...
 ]
 ```

@@ -1,5 +1,5 @@
 #===========================================================
-# PROJECT NAME HERE
+# APP NAME HERE
 # By YOUR NAME HERE
 #===========================================================
 
@@ -21,25 +21,32 @@ app = Flask(__name__)
 #===========================================================
 
 #-----------------------------------------------------------
-# Home page - Show all notes
+# Home page - Show all creatures
 #-----------------------------------------------------------
 @app.get("/")
-def show_notes():
+def show_all_creatures():
     with connect_db() as db:
         sql = """
-            SELECT id, title, body, pinned, created
-            FROM note
-            ORDER BY pinned DESC, created DESC
+            SELECT id, species, name
+            FROM creatures
         """
         params = ()
-        notes = db.execute(sql, params).fetchall()
+        creatures = db.execute(sql, params).fetchall()
 
-        flash("Test message", "info")
-        flash("Test message", "warning")
-        flash("Test message that is longer", "success")
-        flash("Test message", "error")
-        
-        return render_template("pages/note_list.jinja", notes=notes)
+        return render_template("pages/creature_list.jinja", creatures=creatures)
+
+
+#-----------------------------------------------------------
+# Help page - Show some help
+#-----------------------------------------------------------
+@app.get("/help")
+def show_help():
+
+    flash("Flash test message")
+    flash("Success test message", "success")
+    flash("Error test message", "error")
+
+    return render_template("pages/help.jinja")
 
 
 #===========================================================
