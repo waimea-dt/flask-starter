@@ -79,11 +79,11 @@ Update the nav menu in `templates/pages/base.jinja`...
 {% raw %}{# Show different options depending on login state... #}
 
 {% if session.logged_in %}
-    <li>Welcome, Admin!</li>
-    <li><a href="/admin">Admin</a></li>
-    <li><a href="/logout">Logout</a></li>
+    Welcome, Admin!
+    <a href="/admin">Admin</a>
+    <a href="/logout">Logout</a>
 {% else %}
-    <li><a href="/login">Login</a></li>
+    <a href="/login">Login</a>
 {% endif %}     {% endraw %}
 ```
 <!-- Ignore the `raw` and `endraw` tags in these Jinja code snippets - they are required for GitHub Pages -->
@@ -98,7 +98,7 @@ If you need to create multiple user accounts and authenticate them based on user
 ### 1. Create a 'user' table
 
 ```sql
-CREATE TABLE user (
+CREATE TABLE users (
     id        INTEGER PRIMARY KEY AUTOINCREMENT,
     forename  TEXT NOT NULL,
     surname   TEXT NOT NULL,
@@ -150,7 +150,7 @@ def add_user():
     password = request.form.get('password', '').strip()
 
     with connect_db() as db:
-        sql = "SELECT id FROM user WHERE username=?"
+        sql = "SELECT id FROM users WHERE username=?"
         params = (username,)
         user = db.execute(sql, params).fetchone()
 
@@ -161,7 +161,7 @@ def add_user():
         pass_hash = generate_password_hash(password)
 
         sql = """
-            INSERT INTO user (forename, surname, username, pass_hash)
+            INSERT INTO users (forename, surname, username, pass_hash)
             VALUES (?, ?, ?, ?)
         """
         params = (forename, surname, username, pass_hash)
@@ -204,7 +204,7 @@ def login_user():
     with connect_db() as db:
         sql = """
             SELECT id, forename, surname, pass_hash
-            FROM user
+            FROM users
             WHERE username=?
         """
         params = (username,)
@@ -257,12 +257,12 @@ Update the nav menu in `templates/pages/base.jinja`...
 {% raw %}{# Show different options depending on login state... #}
 
 {% if session.logged_in %}
-    <li>Welcome, {{ session.user.forename }}!</li>
-    <li><a href="/admin">Admin</a></li>
-    <li><a href="/logout">Logout</a></li>
+    Welcome, {{ session.user.forename }}!
+    <a href="/admin">Admin</a>
+    <a href="/logout">Logout</a>
 {% else %}
-    <li><a href="/login">Login</a></li>
-    <li><a href="/user/new">Sign-Up</a></li>
+    <a href="/login">Login</a>
+    <a href="/user/new">Sign-Up</a>
 {% endif %}     {% endraw %}
 ```
 <!-- Ignore the `raw` and `endraw` tags in these Jinja code snippets - they are required for GitHub Pages -->
@@ -275,7 +275,7 @@ If you need to know the logged in user information (e.g. you need the ID when po
 with connect_db() as db:
     user_id = session["user"]["id"]
     sql = """
-        INSERT INTO note (title, body, user_id)
+        INSERT INTO notes (title, body, user_id)
         VALUES (?, ?, ?)
     """
     params = (title, body, user_id)
