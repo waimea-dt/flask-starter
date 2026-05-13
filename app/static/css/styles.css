@@ -4,7 +4,7 @@
 ===========================================================*/
 
 :root {
-    --text-col:         #133;
+    --text-col:         #244;
 
     --back-col:         #dff;
     --back-col-dark:    #bdd;
@@ -23,6 +23,12 @@ html {
 
     font-family: system-ui, sans-serif;
 }
+
+
+body {
+    min-height: 100dvh;
+}
+
 
 main {
     max-width: 60rem;
@@ -61,6 +67,13 @@ body > header {
 
 
 /* Page Headings -----------------------------------------------*/
+
+main > h1.welcome {
+    font-size: 5rem;
+    text-align: center;
+    margin-block: 5rem;
+}
+
 
 main > h2 {
     font-size: 2rem;
