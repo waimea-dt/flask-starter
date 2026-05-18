@@ -10,7 +10,7 @@ If you are dealing withe relatively small images / files (100kB or less), then y
 Define the DB schema with a **BLOB** field, and in the case of images, you will need to store the **[MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types/Common_types)** to identify the image type when accessing it...
 
 ```sql
-CREATE TABLE club (
+CREATE TABLE clubs (
     id        INTEGER PRIMARY KEY AUTOINCREMENT,
     name      TEXT NOT NULL,
     logo_data BLOB NOT NULL,
@@ -71,7 +71,7 @@ def add_club():
 
     with connect_db() as db:
         sql = """
-            INSERT INTO club (name, logo_data, logo_mime)
+            INSERT INTO clubs (name, logo_data, logo_mime)
             VALUES (?, ?, ?)
         """
         params = (name, logo_data, logo_mime)
@@ -91,7 +91,7 @@ When accessing database entries, **do not request the image data** along with ot
 @app.get('/club/<int:id>')
 def get_club(id):
     with connect_db() as db:
-        sql = "SELECT name FROM club WHERE id=?"
+        sql = "SELECT name FROM clubs WHERE id=?"
         params = (id,)
         club = db.execute(sql, params).fetchone()
 
@@ -119,7 +119,7 @@ This route retrieves the image data and MIME type, then creates an image file an
 @app.get('/club/<int:id>/logo')
 def get_club_logo(id):
     with connect_db() as db:
-        sql = "SELECT logo_data, logo_mime FROM club WHERE id=?"
+        sql = "SELECT logo_data, logo_mime FROM clubs WHERE id=?"
         params = (id,)
         logo = db.execute(sql, params).fetchone()
 
@@ -145,7 +145,7 @@ If you have allowed files such as `.txt` to be uploaded, you might want to allow
 @app.get('/club/<int:id>/info/download')
 def download_club_info(id):
     with connect_db() as db:
-        sql = "SELECT name, info_doc_data FROM club WHERE id=?"
+        sql = "SELECT name, info_doc_data FROM clubs WHERE id=?"
         params = (id,)
         club = db.execute(sql, params).fetchone()
 

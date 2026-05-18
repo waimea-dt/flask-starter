@@ -73,6 +73,7 @@ Update the nav menu in `templates/pages/base.jinja`...
     <a href="/logout">Logout</a>
 {% else %}
     <a href="/login">Login</a>
+    <a href="/login">Login</a>
 {% endif %}     {% endraw %}
 ```
 <!-- Ignore the `raw` and `endraw` tags in these Jinja code snippets - they are required for GitHub Pages -->
@@ -98,6 +99,7 @@ If you need to create multiple user accounts and authenticate them based on user
 ### 1. Create a 'user' table
 
 ```sql
+CREATE TABLE users (
 CREATE TABLE users (
     id        INTEGER PRIMARY KEY AUTOINCREMENT,
     forename  TEXT NOT NULL,
@@ -151,6 +153,7 @@ def add_user():
 
     with connect_db() as db:
         sql = "SELECT id FROM users WHERE username=?"
+        sql = "SELECT id FROM users WHERE username=?"
         params = (username,)
         user = db.execute(sql, params).fetchone()
 
@@ -161,6 +164,7 @@ def add_user():
         pass_hash = generate_password_hash(password)
 
         sql = """
+            INSERT INTO users (forename, surname, username, pass_hash)
             INSERT INTO users (forename, surname, username, pass_hash)
             VALUES (?, ?, ?, ?)
         """
@@ -253,6 +257,8 @@ Update the nav menu in `templates/pages/base.jinja`...
 {% else %}
     <a href="/login">Login</a>
     <a href="/user/new">Sign-Up</a>
+    <a href="/login">Login</a>
+    <a href="/user/new">Sign-Up</a>
 {% endif %}     {% endraw %}
 ```
 <!-- Ignore the `raw` and `endraw` tags in these Jinja code snippets - they are required for GitHub Pages -->
@@ -266,7 +272,7 @@ If you need to know the logged in user information (e.g. you need the ID when po
 with connect_db() as db:
     user_id = session["user"]["id"]
     sql = """
-        INSERT INTO note (title, body, user_id)
+        INSERT INTO notes (title, body, user_id)
         VALUES (?, ?, ?)
     """
     params = (title, body, user_id)

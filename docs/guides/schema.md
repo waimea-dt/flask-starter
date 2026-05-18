@@ -10,11 +10,11 @@ class TableName:
     NAME = "tablename"
 
     SCHEMA = """
-        CREATE TABLE ...
+        CREATE TABLE tablename ...
     """
 
     SEED_DATA = """
-        INSERT INTO ...
+        INSERT INTO tablename ...
     """
 ```
 
@@ -45,6 +45,7 @@ TABLES = [
 
 ```sql
 CREATE TABLE notes (
+CREATE TABLE notes (
     id      INTEGER PRIMARY KEY AUTOINCREMENT,
     title   TEXT NOT NULL,
     body    TEXT,
@@ -61,6 +62,7 @@ Tables are connected via **foreign keys** which link a field in one table to the
 
 ```sql
 CREATE TABLE users (
+CREATE TABLE users (
     id        INTEGER PRIMARY KEY AUTOINCREMENT,
     forename  TEXT NOT NULL,
     surname   TEXT NOT NULL,
@@ -73,6 +75,7 @@ CREATE TABLE users (
 
 ```sql
 CREATE TABLE notes (
+CREATE TABLE notes (
     id      INTEGER PRIMARY KEY AUTOINCREMENT,
     title   TEXT NOT NULL,
     body    TEXT,
@@ -81,6 +84,7 @@ CREATE TABLE notes (
 
     user_id INTEGER NOT NULL,
 
+    FOREIGN KEY(user_id) REFERENCES users(id)
     FOREIGN KEY(user_id) REFERENCES users(id)
 )
 ```
@@ -95,6 +99,7 @@ Here, users can be a member of *many* clubs, and clubs can have *many* members, 
 
 ```sql
 CREATE TABLE users (
+CREATE TABLE users (
     id        INTEGER PRIMARY KEY AUTOINCREMENT,
     forename  TEXT NOT NULL,
     surname   TEXT NOT NULL,
@@ -107,6 +112,7 @@ CREATE TABLE users (
 
 ```sql
 CREATE TABLE clubs (
+CREATE TABLE clubs (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     name        TEXT NOT NULL,
     description TEXT
@@ -117,11 +123,12 @@ CREATE TABLE clubs (
 
 ```sql
 CREATE TABLE members (
+CREATE TABLE members (
     user_id INTEGER NOT NULL,
     club_id INTEGER NOT NULL,
 
-    FOREIGN KEY(user_id) REFERENCES user(id),
-    FOREIGN KEY(club_id) REFERENCES club(id),
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(club_id) REFERENCES clubs(id),
 
     PRIMARY KEY(user_id, club_id)
 )
@@ -135,12 +142,14 @@ You can configure each table to have sample / test data loaded into it when it i
 
 ```sql
 INSERT INTO users (forename, surname, username, pass_hash)
+INSERT INTO users (forename, surname, username, pass_hash)
 VALUES ("Test", "User", "test", "scrypt:32768:8:1$n7eJTucLbaGmUpAM$c1776374a8d456a6eaf61bccc08db5e1fcc4ff3b3983d364c45ab13074255eeae0a393afb11f99a9fe63fb1d980992ace17a72ba70324523b11e92e36cbe4252")
 ```
 
 **Notes table seeding:**
 
 ```sql
+INSERT INTO notes (title, body, pinned, user_id)
 INSERT INTO notes (title, body, pinned, user_id)
 VALUES ("Welcome!",        "This is a demo application", 1, 1),
        ("Getting Started", "Use this template to start", 1, 1),
@@ -157,8 +166,11 @@ VALUES ("Welcome!",        "This is a demo application", 1, 1),
 
 ### Table Naming
 
+The general convention is that tables should be named using **plural** names, so a table that hold notes should be called 'notes'. This makes queries read a bit more awkwardly, but you get used to it:
 Tables should be named using **plural** names, so a table that hold notes should be called 'notes':
 
+- `notes.id`
+- `notes.title`
 - `notes.id`
 - `notes.title`
 - etc.
