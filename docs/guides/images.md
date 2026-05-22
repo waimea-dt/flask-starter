@@ -124,7 +124,7 @@ def get_club_logo(id):
         logo = db.execute(sql, params).fetchone()
 
         if not logo:
-            return render_template("pages/404.jinja"), 404
+            return render_template("pages/_404.jinja"), 404
 
         return make_response(
             send_file(
@@ -150,7 +150,7 @@ def download_club_info(id):
         club = db.execute(sql, params).fetchone()
 
         if not club or not club["info_doc_data"]:
-            return render_template("pages/404.jinja"), 404
+            return render_template("pages/_404.jinja"), 404
 
         return send_file(
             BytesIO(club["info_doc_data"]),

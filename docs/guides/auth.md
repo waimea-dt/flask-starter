@@ -63,7 +63,7 @@ def logout_user():
 
 ### 5. Update nav links based on login status
 
-Update the nav menu in `templates/pages/base.jinja`...
+Update the nav menu in `templates/pages/_base.jinja`...
 
 ```jinja
 {% raw %}{# Show different options depending on login state... #}
@@ -242,7 +242,7 @@ def logout_user():
 
 ### 7. Update nav links to reflect login status
 
-Update the nav menu in `templates/pages/base.jinja`...
+Update the nav menu in `templates/pages/_base.jinja`...
 
 ```jinja
 {% raw %}{# Show different options depending on login state... #}
