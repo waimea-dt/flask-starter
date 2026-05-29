@@ -9,7 +9,7 @@ Run Rancher Desktop ready to start Docker container
 
 ### 2. Configure environment vars:
 
-Copy `.env-example` to `.env`, and edit as needed
+Copy `.env.example` to `.env`, and edit as needed
 
 
 ### 3. Bring up the Docker container:
