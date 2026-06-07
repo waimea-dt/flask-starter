@@ -237,6 +237,7 @@ Use `secure_filename()` to sanitise uploaded filenames and save to disk...
 
 ```python
 import os
+import uuid
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = os.path.join('app', 'static', 'uploads')
