@@ -30,15 +30,15 @@ window.onload = (event) => {
         }
     })
 
-    
+
     //--------------------------------------------------
     // Dismiss flash messages
     //--------------------------------------------------
-    const messageList = document.getElementById('messages')
+    const messageList = document.getElementById('flash-messages')
 
     if (messageList) {
         messageList.addEventListener('click', (event) => {
-            const message = event.target.closest('.message')
+            const message = event.target.closest('.flash-message')
             if (message) message.remove()
         })
     }
