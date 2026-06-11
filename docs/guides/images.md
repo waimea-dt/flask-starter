@@ -154,7 +154,7 @@ def get_club_logo(id):
         logo = db.execute(sql, params).fetchone()
 
         if not logo:
-            return render_template("pages/_404.jinja"), 404
+            abort(404)
 
         return make_response(
             send_file(
@@ -180,7 +180,7 @@ def download_club_info(id):
         club = db.execute(sql, params).fetchone()
 
         if not club or not club["info_doc_data"]:
-            return render_template("pages/_404.jinja"), 404
+            abort(404)
 
         return send_file(
             BytesIO(club["info_doc_data"]),
@@ -237,7 +237,6 @@ Use `secure_filename()` to sanitise uploaded filenames and save to disk...
 
 ```python
 import os
-import uuid
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = os.path.join('app', 'static', 'uploads')
@@ -302,7 +301,7 @@ def download_club_info(id):
         club = db.execute(sql, params).fetchone()
 
         if not club or not club["info_filename"]:
-            return render_template("pages/_404.jinja"), 404
+            abort(404)
 
         return send_from_directory(
             UPLOAD_FOLDER,
