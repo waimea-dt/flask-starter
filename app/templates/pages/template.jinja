@@ -1,0 +1,18 @@
+{#=====================================================
+  template
+=====================================================#}
+
+{% extends 'pages/_base.jinja' %}
+
+
+{% block content %}
+  <div id="tasklist">
+    {% for task in tasks %}
+      <div class="task">
+        <p>{{ task.priority }}</p>
+        <p>{{ task.name }}</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+

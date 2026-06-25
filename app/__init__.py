@@ -25,38 +25,13 @@ app = Flask(__name__)
 #-----------------------------------------------------------
 @app.get("/")
 def show_welcome():
-    return render_template("pages/welcome.jinja")
-
-
-#-----------------------------------------------------------
-# Creature list page - Show all the creatures
-#-----------------------------------------------------------
-@app.get("/creatures")
-def show_all_creatures():
     with connect_db() as db:
         sql = """
-            SELECT id, species, name
-            FROM creatures
+        SELECT * FROM TASKS
         """
-        params = ()
-        creatures = db.execute(sql, params).fetchall()
-
-        return render_template("pages/creature_list.jinja", creatures=creatures)
-
-
-#-----------------------------------------------------------
-# Help page - Show some help
-#-----------------------------------------------------------
-@app.get("/help")
-def show_help():
-
-    flash("Flash test message")
-    flash("Flash test message with a longer bit of text")
-    flash("Success test message", "success")
-    flash("Error test message", "error")
-
-    return render_template("pages/help.jinja")
-
+        data = db.execute(sql).fetchall() 
+        print(data)
+        return render_template("pages/template.jinja",tasks=data)
 
 #===========================================================
 # Configure the app
