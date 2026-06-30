@@ -30,8 +30,42 @@ def show_welcome():
         SELECT * FROM TASKS
         """
         data = db.execute(sql).fetchall() 
-        print(data)
-        return render_template("pages/template.jinja",tasks=data)
+        return render_template("pages/list.jinja",tasks=data)
+
+@app.route("/tasks/<int:id>", methods=['GET','POST','DELETE'])
+def manage_tasks(id):
+    with connect_db() as db:
+        if request.method == 'GET':
+            sql = "SELECT * FROM TASKS WHERE id = ?"
+            params = (id,)
+            data = db.execute(sql,params).fetchone()
+        elif request.method == 'POST':
+            name = request.form['name']
+            priority = request.form['priority']
+            sql = "UPDATE tasks SET name = ?,priority = ? WHERE id = ?"
+            params = (name,priority,id)
+            db.execute(sql,params)
+            data = {'name':name,'priority':priority, 'id':id}
+        elif request.method == 'DELETE':
+            sql = "DELETE FROM tasks WHERE id = ?"
+            params = (id,)
+            db.execute(sql,params)
+            return print()
+        return render_template("partials/task.jinja",task=data)
+
+        
+
+    
+
+@app.get("/tasks/<int:id>/edit")
+def edit_task(id):
+    with connect_db() as db:
+        sql = "SELECT * FROM tasks WHERE id = ?"
+        params = (id,)
+        data = db.execute(sql,params).fetchone()
+        return render_template("partials/edit.jinja",task = data)
+        
+
 
 #===========================================================
 # Configure the app

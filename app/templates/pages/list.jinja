@@ -6,5 +6,11 @@
 
 
 {% block content %}
+  <div id="tasklist">
+    {% for task in tasks %}
+      <div hx-target="this" hx-swap="outerHTML" hx-get="tasks/{{task.id}}" hx-trigger="load"></div>
+    {% endfor %}
+      
+  </div>
 {% endblock %}
 

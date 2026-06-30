@@ -1,0 +1,10 @@
+{#=====================================================
+  template
+=====================================================#}
+
+<div class="task" hx-target="this" hx-swap="outerHTML">
+  <p>{{ task.priority }}</p>
+  <p>{{ task.name }}</p>
+  <button hx-get="/tasks/{{task.id}}/edit">Edit</button>
+</div>
+
