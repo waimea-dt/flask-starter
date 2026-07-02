@@ -29,8 +29,9 @@ def show_welcome():
         sql = """
         SELECT * FROM TASKS
         """
-        data = db.execute(sql).fetchall() 
-        return render_template("pages/list.jinja",tasks=data)
+        data = db.execute(sql).fetchall()
+        data_sorted = sorted(data, key = lambda x: x['priority'], reverse=True)
+        return render_template("pages/list.jinja",tasks=data_sorted)
 
 @app.route("/tasks/<int:id>", methods=['GET','POST','DELETE'])
 def manage_tasks(id):
@@ -43,6 +44,7 @@ def manage_tasks(id):
             name = request.form['name']
             priority = request.form['priority']
             sql = "UPDATE tasks SET name = ?,priority = ? WHERE id = ?"
+            #INSERT INTO tasks (name,priority) VALUES (?,?) ON CONFLICT (id) DO UPDATE SET name = excluded.name, priority = excluded.priority;
             params = (name,priority,id)
             db.execute(sql,params)
             data = {'name':name,'priority':priority, 'id':id}
@@ -50,7 +52,7 @@ def manage_tasks(id):
             sql = "DELETE FROM tasks WHERE id = ?"
             params = (id,)
             db.execute(sql,params)
-            return print()
+            return ""
         return render_template("partials/task.jinja",task=data)
 
         

@@ -11,9 +11,11 @@ main{
         .task{
             display:flex;
             gap:2px;
-            p,img:not(:last-child){
+            background-color: cadetblue;
+            margin:10px;
+            :not(:last-child){
                 border-right:1px dashed grey;
-            }
+            }   
         }
     }
 }
